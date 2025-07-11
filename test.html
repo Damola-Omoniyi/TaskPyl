@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Studyo</title>
+</head>
+
+<body>
+<h1>Studyo</h1>
+
+<form id="login">
+  <input type = "text" id ="username" name="username" placeholder="Username" required/>
+  <input type="password" id="password" name="password" placeholder="password" required/>
+  <button type="submit">Log In</button>
+</form>
+
+<p> Don't have an account? <a href="signup.html"> Sign up</a></p>
+
+</body>
+
+<script>
+    login = document.getElementById('login')
+    login.addEventListener('submit', function(e){
+      e.preventDefault();
+      const loginData = new FormData(login);
+      const data = Object.fromEntries(loginData.entries());
+      window.location.href = "index.html";});
+</script>
+
+</html>
