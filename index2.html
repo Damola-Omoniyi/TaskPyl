@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Studyo</title>
+</head>
+<body>
+
+<form id = "myform">
+    <input type="text" name="message" required>
+    <button type="submit">Send</button>
+</form>
+
+</body>
+<script>
+    const form = document.getElementById('myform');
+    form.addEventListener('submit', async (event)=>{
+        event.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/receive/',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            alert('Server said: ' + result.message);
+
+        } catch(error){
+            console.error('Error:', error);
+        }
+    })
+
+</script>
+</html>
