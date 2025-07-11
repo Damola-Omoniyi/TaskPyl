@@ -1,10 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Studyo - Dashboard</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 40px;
+    }
+
+    .stats-box {
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      font-size: 20px;
+      margin: 20px auto;
+      width: 300px;
+    }
+
+    .add-task-btn {
+      display: block;
+      margin: 0 auto 30px auto;
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-task-btn:hover {
+      background-color: #3a7ccc;
+    }
+
+    .task-list {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .task-item {
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .task-item:hover {
+      background-color: #2a2a2a;
+    }
+
+    .task-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .task-meta {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .urgency {
+      color: #4ea8ff;
+    }
+
+    .date {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .start-date {
+      color: #00cc66;
+      margin-right: 10px;
+    }
+
+    .deadline {
+      color: #ff4d4d;
+    }
+
+    /* Calendar popup overlay */
+    .calendar-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .calendar-popup {
+      background-color: #fff;
+      color: black;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .calendar-popup h3 {
+      margin-top: 0;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .stats-box, .task-list {
+        width: 90%;
+      }
+
+      .task-name {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-$END$
+
+  <h1>Studyo</h1>
+
+  <div class="stats-box">
+    Tasks Completed: <strong>3</strong>
+  </div>
+
+  <button class="add-task-btn">Add Task</button>
+
+  <div class="task-list">
+
+    <div class="task-item" onclick="goToTask()">
+      <div class="task-name">Finish Portfolio Site</div>
+      <div class="task-meta">
+        <span class="urgency">Urgency: High</span><br />
+        <span class="date start-date" onclick="showCalendar(event, '01/07/2025')">Start: 01/07/2025</span>
+        <span class="date deadline" onclick="showCalendar(event, '07/07/2025')">Deadline: 07/07/2025</span>
+      </div>
+    </div>
+
+    <div class="task-item" onclick="goToTask()">
+      <div class="task-name">Read System Design Book</div>
+      <div class="task-meta">
+        <span class="urgency">Urgency: Medium</span><br />
+        <span class="date start-date" onclick="showCalendar(event, '03/07/2025')">Start: 03/07/2025</span>
+        <span class="date deadline" onclick="showCalendar(event, '15/07/2025')">Deadline: 15/07/2025</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Calendar Overlay -->
+  <div id="calendarOverlay" class="calendar-overlay" onclick="hideCalendar()">
+    <div class="calendar-popup" onclick="event.stopPropagation()">
+      <h3>Date:</h3>
+      <p id="calendarDateDisplay" style="font-size: 20px; margin-top: 10px;"></p>
+      <button class="close-btn" onclick="hideCalendar()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function showCalendar(event, date) {
+      event.stopPropagation();
+      const calendar = document.getElementById("calendarOverlay");
+      const dateDisplay = document.getElementById("calendarDateDisplay");
+      dateDisplay.textContent = date;  // Already in British format
+      calendar.style.display = "flex";
+    }
+
+    function hideCalendar() {
+      document.getElementById("calendarOverlay").style.display = "none";
+    }
+
+    function goToTask() {
+      // Placeholder - link to task detail later
+      alert("Go to task description (coming soon)");
+    }
+  </script>
+
 </body>
 </html>
