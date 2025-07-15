@@ -37,16 +37,13 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         if(response.ok) {
             const result = await response.json();
-            // Store CSRF token in localStorage
             localStorage.setItem('username', data.username);
-            // Verify session before redirect
             window.location.href = 'addtask.html';}
         else {alert('Login failed');}
+
     } catch (err) {
         alert('Error: ' + err.message);}
 });
 
-
 </script>
-
 </html>

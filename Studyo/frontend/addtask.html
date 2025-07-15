@@ -24,14 +24,11 @@
 </form>
 </body>
 <script>
-  // Add this at the top of your script
 const username = localStorage.getItem('username');
-
 const form = document.getElementById('task');
+
 form.addEventListener('submit', async(event) => {
     event.preventDefault();
-
-    // First verify session
     const taskData = {
         taskName: document.getElementById('taskName').value,
         startDate: document.getElementById('startDate').value,
@@ -47,7 +44,7 @@ form.addEventListener('submit', async(event) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            credentials: 'include',  // Important for cookies
+            credentials: 'include',
             body: JSON.stringify(taskData)
         });
 
