@@ -4,8 +4,9 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from .models import Task
 import json
-
+from django.middleware.csrf import get_token
 
 def say_hello(request):
     return JsonResponse({'message':'Hello World'})
@@ -20,13 +21,15 @@ def receive_data(request):
 
 @csrf_exempt
 def user_login(request):
-    username = request.POST.get("username", "guest")
-    password = request.POST.get("password", "password")
+    data = json.loads(request.body)
+    username = data.get("username")
+    password = data.get("password")
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return JsonResponse({'success': 'User logged in'})
-        # redirect
+        csrf_token = get_token(request)
+        return JsonResponse({'success': 'User logged in',
+                             'csrfToken':csrf_token}, status=200)
 
     else:
         return JsonResponse({'error': 'There seems to be an error'}, status=401)
@@ -53,6 +56,38 @@ def create_user(request):
 
         user = User.objects.create_user(username=username, password=password)
         return JsonResponse({"success": f"User {user.username} created successfully!"}, status=201)
+
+    return JsonResponse({"error": "Only POST allowed"}, status=405)
+
+
+@csrf_exempt  # Keep this for now, but remove in production
+def create_task(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            task_name = data.get("taskName")
+            start_date = data.get("startDate")
+            deadline = data.get("deadline")
+            urgency = data.get("urgency")
+            description = data.get("description")
+            username = data.get("username")
+            user = User.objects.get(username=username)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+        try:
+            task = Task.objects.create(
+                task_name=task_name,
+                start_date=start_date,
+                end_date=deadline,
+                task_urgency=urgency,
+                task_description=description,
+                user= user          )
+            return JsonResponse({"success": "Task created"}, status=201)
+
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
 
     return JsonResponse({"error": "Only POST allowed"}, status=405)
 

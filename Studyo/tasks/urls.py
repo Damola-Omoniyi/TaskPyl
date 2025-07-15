@@ -7,4 +7,5 @@ urlpatterns = [
     path('receive/', views.receive_data),
     path('login/', views.user_login),
     path('signup/', views.create_user),
+    path('create-task/', views.create_task),
 ]

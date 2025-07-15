@@ -18,7 +18,7 @@ class Task(models.Model):
     task_urgency = models.CharField(
         max_length=10,
         choices=URGENCY_CHOICES,
-        default='medium',
+        default='Medium',
     )
     start_date =  models.DateField(default=timezone.now)
     end_date = models.DateField(blank=True, null=True)

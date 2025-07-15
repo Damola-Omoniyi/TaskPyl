@@ -25,26 +25,20 @@
 </body>
 <script>
   // Add this at the top of your script
-const csrfToken = localStorage.getItem('csrfToken');
+const username = localStorage.getItem('username');
 
 const form = document.getElementById('task');
 form.addEventListener('submit', async(event) => {
     event.preventDefault();
 
     // First verify session
-    const sessionCheck = await checkSession();
-    if (!sessionCheck.authenticated) {
-        alert('Please login first');
-        window.location.href = 'login.html';
-        return;
-    }
-
     const taskData = {
         taskName: document.getElementById('taskName').value,
         startDate: document.getElementById('startDate').value,
         deadline: document.getElementById('deadline').value,
         urgency: document.getElementById('urgency').value,
-        description: document.getElementById('description').value
+        description: document.getElementById('description').value,
+        username: username
     };
 
     try {
@@ -52,7 +46,6 @@ form.addEventListener('submit', async(event) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken  // Include CSRF token
             },
             credentials: 'include',  // Important for cookies
             body: JSON.stringify(taskData)
@@ -65,16 +58,5 @@ form.addEventListener('submit', async(event) => {
     }
 });
 
-// Reuse the same checkSession function
-async function checkSession() {
-    try {
-        const response = await fetch('http://127.0.0.1:8000/api/check-session/', {
-            credentials: 'include'
-        });
-        return await response.json();
-    } catch (error) {
-        return {authenticated: false};
-    }
-}
 </script>
 </html>
