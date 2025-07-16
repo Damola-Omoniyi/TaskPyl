@@ -36,6 +36,9 @@
             const result = await response.json();
             alert(JSON.stringify(result));
 
+            if (response.ok){
+            window.location.href = 'login.html';
+            }
         } catch (err) {
             alert("Signup failed: " + err.message);
         }

@@ -12,6 +12,40 @@ def say_hello(request):
     return JsonResponse({'message':'Hello World'})
 
 @csrf_exempt
+def task_data(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+
+            if not username:
+                return JsonResponse({"error": "Username not provided."}, status=400)
+
+            tasks = Task.objects.filter(user__username=username)
+            task_json = {}
+
+            for i, task in enumerate(tasks, start=1):
+                task_json[f"task{i}"] = {
+                    "name": task.task_name,
+                    "urgency": task.task_urgency,
+                    "start_date": str(task.start_date),
+                    "end_date": str(task.end_date) if task.end_date else None,
+                    "completed": task.task_completed,
+                }
+
+            task_count = tasks.count()
+            completed_task_count = tasks.filter(task_completed=True).count()
+
+            task_json["completion_status"] = f"{completed_task_count}/{task_count}"
+
+            return JsonResponse(task_json)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON."}, status=400)
+
+    return JsonResponse({"error": "Only POST requests allowed."}, status=405)
+
+@csrf_exempt
 def receive_data(request):
     if request.method == "POST":
         body = json.loads(request.body.decode('utf-8'))
