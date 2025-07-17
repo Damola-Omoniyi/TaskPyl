@@ -5,9 +5,12 @@
     <title>Studyo</title>
 </head>
 <body>
+<h1 id="status">Tasks completed</h1>
+<ul id = "tasks"></ul>
 
 </body>
 <script>
+    let task_data;
     async function fetchTasks() {
   const username = localStorage.getItem('username');
   if (!username) {
@@ -32,15 +35,48 @@
     }
 
     const data = await response.json();
+    tasks = document.getElementById("tasks");
     console.log(data);
     // TODO: Use the data to update your dashboard UI here
+   for (const [key, values] of Object.entries(data)) {
+  if (values.name) {
+    const task_li = document.createElement("li");
 
+    let isFirst = true; // 👈 Flag to detect the first entry
+
+    for (const [innerKey, value] of Object.entries(values)) {
+      if (typeof value === "boolean") continue; // Skip booleans
+
+      if (isFirst) {
+        const name = document.createElement("a");
+        name.href = "task-info.html";
+        name.textContent = value;
+        task_li.appendChild(name);
+        name.addEventListener("click", function (event) {
+         event.preventDefault()
+        localStorage.setItem('taskname', value)
+        console.log(23);
+        window.location.href = 'task-info.html';} )
+        isFirst = false; // 👈 Make sure only the first one gets this
+      } else {
+        const item = document.createElement("p");
+        item.textContent = value;
+        task_li.appendChild(item);
+      }
+    }
+
+    tasks.appendChild(task_li);
+  }
+}
+
+    const status = document.getElementById("status")
+    const p = document.createElement("p")
+    p.textContent =data.completion_status;
+    status.appendChild(p)
   } catch (err) {
     alert("Failed to fetch tasks: " + err.message);
   }
 }
-
 window.addEventListener('DOMContentLoaded', fetchTasks);
-
 </script>
 </html>
