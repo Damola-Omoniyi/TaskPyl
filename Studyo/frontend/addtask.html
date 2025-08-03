@@ -1,64 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Studyo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Task - Studyo</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 40px;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    input, select, textarea, button {
+      padding: 10px;
+      margin-top: 30px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      background-color: #003366;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+
+    button:hover {
+      background-color: #3a7ccc;
+    }
+
+    @media (max-width: 480px) {
+      form {
+        width: 90%;
+        padding: 10px 30px;
+      }
+
+      input, select, textarea, button {
+        font-size: 18px;
+        padding: 12px;
+        margin-top: 20px;
+      }
+
+      textarea {
+        min-height: 120px;
+      }
+    }
+  </style>
 </head>
 <body>
-<h1>Studyo</h1>
+  <form id="task">
+    <h1>Studyo</h1>
 
-<form id ="task">
-    <input type="text" id="taskName" name="taskName" placeholder="Task Name" required /> <br><br>
-    <input type="date" id="startDate" name="startDate"  required /> <br><br>
-    <input type="date" id="deadline" name="deadline" required /> <br><br>
+    <input type="text" id="taskName" name="taskName" placeholder="Task Name" required />
+    <input type="date" id="startDate" name="startDate" required />
+    <input type="date" id="deadline" name="deadline" required />
+
     <select id="urgency" name="urgency" required>
-        <option value ="" disabled selected>Urgency</option>
-        <option value ="High">High</option>
-        <option value ="Medium">Medium</option>
-        <option value ="Low">Low</option>
-    </select> <br><br>
+      <option value="" disabled selected>Urgency</option>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
 
     <textarea id="description" name="description" placeholder="Task Description" required></textarea>
-    <br><br>
-    <button type="submit">Create Task</button>
-</form>
-</body>
-<script>
-const username = localStorage.getItem('username');
-const form = document.getElementById('task');
 
-form.addEventListener('submit', async(event) => {
-    event.preventDefault();
-    const taskData = {
+    <button type="submit">Create Task</button>
+  </form>
+
+  <script>
+    const username = localStorage.getItem('username');
+    const form = document.getElementById('task');
+
+    form.addEventListener('submit', async(event) => {
+      event.preventDefault();
+      const taskData = {
         taskName: document.getElementById('taskName').value,
         startDate: document.getElementById('startDate').value,
         deadline: document.getElementById('deadline').value,
         urgency: document.getElementById('urgency').value,
         description: document.getElementById('description').value,
         username: username
-    };
+      };
 
-    try {
+      try {
         const response = await fetch("http://127.0.0.1:8000/api/create-task/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: 'include',
-            body: JSON.stringify(taskData)
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: 'include',
+          body: JSON.stringify(taskData)
         });
 
         const result = await response.json();
         alert(JSON.stringify(result));
 
         if (response.ok){
-         window.location.href = 'index.html';
+          window.location.href = 'index.html';
         }
-        alert("Task created successfully: " + JSON.stringify(result));
-    } catch(err) {
-        alert("Task creation failed: " + err.message);
-    }
-});
 
-</script>
+        alert("Task created successfully: " + JSON.stringify(result));
+      } catch(err) {
+        alert("Task creation failed: " + err.message);
+      }
+    });
+  </script>
+</body>
 </html>

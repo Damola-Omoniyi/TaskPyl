@@ -8,8 +8,38 @@ from .models import Task
 import json
 from django.middleware.csrf import get_token
 
-def say_hello(request):
-    return JsonResponse({'message':'Hello World'})
+@csrf_exempt
+def task_info(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            taskname = data.get("taskname")
+            if not username and not taskname:
+                return JsonResponse({"error": "Username or TaskName not provided."}, status=400)
+
+            try:
+                task = Task.objects.get(user__username=username, task_name=taskname)
+            except Task.DoesNotExist:
+                return JsonResponse({"error": "Task not found."}, status=404)
+            except Task.MultipleObjectsReturned:
+                return JsonResponse({"error": "Multiple tasks found. Expected only one."}, status=400)
+
+            task_json = {
+                "name": task.task_name,
+                "urgency": task.task_urgency,
+                "description": task.task_description,
+                "start_date": str(task.start_date),
+                "end_date": str(task.end_date) if task.end_date else None,
+                "completed": task.task_completed,
+                "time_spent": task.time_spent
+            }
+            return JsonResponse(task_json)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON."}, status=400)
+    return JsonResponse({"error": "Only POST requests allowed."}, status=405)
+
+
 
 @csrf_exempt
 def task_data(request):
@@ -23,7 +53,6 @@ def task_data(request):
 
             tasks = Task.objects.filter(user__username=username)
             task_json = {}
-
             for i, task in enumerate(tasks, start=1):
                 task_json[f"task{i}"] = {
                     "name": task.task_name,

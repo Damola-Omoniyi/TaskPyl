@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Studyo</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h2>Login Form</h2>
-<form id="loginForm">
-    <label>Username:</label><br>
-     <input type="text" name="username" id="username" required /><br><br>
+  <form id="loginForm">
+    <h1 style="text-align:center;">Studyo</h1>
 
-    <label>Password:</label><br>
-        <input type="password" name="password" id="password" required />
-<br><br>
+    <input type="text" id="username" name="username" placeholder="Username" required />
+
+    <input type="password" id="password" name="password" placeholder="Password" required />
 
     <button type="submit">Log In</button>
-</form>
-<p> Don't have an account? <a href="signup.html"> Sign up</a></p>
+
+    <p style="text-align:center; margin-top: 12px; color: #aaa;">
+      Don't have an account?
+      <a href="signup.html" style="color: #4ea8ff; text-decoration: none;">Sign up</a>
+    </p>
+  </form>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const data = {
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value
+        };
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/login/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                localStorage.setItem('username', data.username);
+                window.location.href = 'index.html';
+            } else {
+                alert('Login failed');
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    });
+  </script>
 
 </body>
-
-<script>
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const data = {username: document.getElementById('username').value,
-    password: document.getElementById('password').value};
-
-    try {
-        const response = await fetch('http://127.0.0.1:8000/api/login/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            credentials: 'include',  // Important for cookies
-            body: JSON.stringify(data),});
-
-        if(response.ok) {
-            const result = await response.json();
-            localStorage.setItem('username', data.username);
-            window.location.href = 'index.html';}
-        else {alert('Login failed');}
-
-    } catch (err) {
-        alert('Error: ' + err.message);}
-});
-
-</script>
 </html>
