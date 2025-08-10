@@ -44,7 +44,7 @@
         name.addEventListener("click", function (event) {
          event.preventDefault()
         localStorage.setItem('taskname', value)
-        window.location.href = 'task-info.html';} )
+        window.location.href = 'taskinfo.html';} )
         item.appendChild(name);
         isFirst = false; // Make sure only the first one gets this
       } else {
