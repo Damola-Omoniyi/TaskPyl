@@ -39,7 +39,7 @@
       item.className = classNames[counter];
       if (isFirst) {
         const name = document.createElement("a");
-        name.href = "task-info.html";
+        name.href = "taskinfo.html";
         name.textContent = value;
         name.addEventListener("click", function (event) {
          event.preventDefault()
