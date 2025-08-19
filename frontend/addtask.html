@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Task - Studyo</title>
+  <link rel="stylesheet" href="addtask.css">
+</head>
+<body>
+  <form id="task">
+    <h1>Studyo</h1>
+
+    <input type="text" id="taskName" name="taskName" placeholder="Task Name" required />
+    <input type="date" id="startDate" name="startDate" required />
+    <input type="date" id="deadline" name="deadline" required />
+
+    <select id="urgency" name="urgency" required>
+      <option value="" disabled selected>Urgency</option>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+
+    <textarea id="description" name="description" placeholder="Task Description" required></textarea>
+
+    <button type="submit">Create Task</button>
+  </form>
+
+  <script src = "addtask.js" defer ></script>
+</body>
+</html>
