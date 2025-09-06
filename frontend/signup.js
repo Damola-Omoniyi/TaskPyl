@@ -5,7 +5,7 @@
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch("https://contained-medicaid-robert-gabriel.trycloudflare.com/api/signup/", {
+            const response = await fetch(`${CONFIG.API_BASE}/api/signup/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

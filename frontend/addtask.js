@@ -1,3 +1,4 @@
+
 const username = localStorage.getItem('username');
     const form = document.getElementById('task');
 
@@ -13,7 +14,7 @@ const username = localStorage.getItem('username');
       };
 
       try {
-        const response = await fetch("https://contained-medicaid-robert-gabriel.trycloudflare.com/api/create-task/", {
+        const response = await fetch(`${CONFIG.API_BASE}/api/create-task/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -34,3 +35,4 @@ const username = localStorage.getItem('username');
         alert("Task creation failed: " + err.message);
       }
     });
+

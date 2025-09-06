@@ -4,9 +4,41 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.http import Http404
 from .models import Task
 import json
 from django.middleware.csrf import get_token
+from rest_framework import permissions, viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import generics
+from .serializers import UserSignupSerializer, TaskSerializer
+from rest_framework import permissions
+
+from rest_framework.permissions import IsAuthenticated
+
+class CreateUser(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSignupSerializer
+    permission_classes = [permissions.AllowAny]
+
+'''class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 @csrf_exempt
 def task_info(request):
@@ -82,20 +114,6 @@ def receive_data(request):
     else:
         return JsonResponse({'error':'Only POST baka'}, status=405)
 
-@csrf_exempt
-def user_login(request):
-    data = json.loads(request.body)
-    username = data.get("username")
-    password = data.get("password")
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        csrf_token = get_token(request)
-        return JsonResponse({'success': 'User logged in',
-                             'csrfToken':csrf_token}, status=200)
-
-    else:
-        return JsonResponse({'error': 'There seems to be an error'}, status=401)
 
 @csrf_exempt
 def create_user(request):
@@ -152,5 +170,5 @@ def create_task(request):
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
 
-    return JsonResponse({"error": "Only POST allowed"}, status=405)
+    return JsonResponse({"error": "Only POST allowed"}, status=405)'''
 

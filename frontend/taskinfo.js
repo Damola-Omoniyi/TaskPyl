@@ -48,7 +48,7 @@
       const taskData = { username: username, taskname: taskname };
 
       try {
-        const response = await fetch("https://contained-medicaid-robert-gabriel.trycloudflare.com/api/task", {
+        const response = await fetch(`${CONFIG.API_BASE}/api/task`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: 'include',

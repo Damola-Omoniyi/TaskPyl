@@ -7,16 +7,18 @@
         };
 
         try {
-            const response = await fetch('https://contained-medicaid-robert-gabriel.trycloudflare.com/api/login/', {
+            const response = await fetch(`${CONFIG.API_BASE}/api/token/`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                credentials: 'include',
                 body: JSON.stringify(data),
             });
 
             if (response.ok) {
                 const result = await response.json();
                 localStorage.setItem('username', data.username);
+                localStorage.setItem('access', result.access);
+                localStorage.setItem('refresh', result.refresh);
+
                 window.location.href = 'index.html';
             } else {
                 alert('Login failed');
