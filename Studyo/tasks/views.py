@@ -1,44 +1,50 @@
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-from django.http import Http404
 from .models import Task
 import json
-from django.middleware.csrf import get_token
 from rest_framework import permissions, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
-from .serializers import UserSignupSerializer, TaskSerializer
+from .serializers import UserSignupSerializer, TaskSerializer, TaskSummarySerializer
 from rest_framework import permissions
 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
+
 
 class CreateUser(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSignupSerializer
     permission_classes = [permissions.AllowAny]
 
-'''class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-
-class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated]
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    def get_queryset(self):
+        return Task.objects.filter(user = self.request.user)
+    
+    @action(detail=False, methods=["get"])
+    # TODO: RENAME THIS VIEW PLEASE
+    def progress(self, request):
+        tasks = self.get_queryset()
+        total = tasks.count()
+        completed = tasks.filter(task_completed=True).count()
+        return Response({"completed":completed,
+                         "total":total})
 
+class TaskSummary(generics.ListAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSummarySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user, task_completed= False)
 
 @csrf_exempt
 def task_info(request):
@@ -73,72 +79,6 @@ def task_info(request):
 
 
 
-@csrf_exempt
-def task_data(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data.get("username")
-
-            if not username:
-                return JsonResponse({"error": "Username not provided."}, status=400)
-
-            tasks = Task.objects.filter(user__username=username)
-            task_json = {}
-            for i, task in enumerate(tasks, start=1):
-                task_json[f"task{i}"] = {
-                    "name": task.task_name,
-                    "urgency": task.task_urgency,
-                    "start_date": str(task.start_date),
-                    "end_date": str(task.end_date) if task.end_date else None,
-                    "completed": task.task_completed,
-                }
-
-            task_count = tasks.count()
-            completed_task_count = tasks.filter(task_completed=True).count()
-
-            task_json["completion_status"] = f"{completed_task_count}/{task_count}"
-
-            return JsonResponse(task_json)
-
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON."}, status=400)
-
-    return JsonResponse({"error": "Only POST requests allowed."}, status=405)
-
-@csrf_exempt
-def receive_data(request):
-    if request.method == "POST":
-        body = json.loads(request.body.decode('utf-8'))
-        return JsonResponse({'message':f'Data gottten nicely:{body}'})
-    else:
-        return JsonResponse({'error':'Only POST baka'}, status=405)
-
-
-@csrf_exempt
-def create_user(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data.get("username")
-            password = data.get("password")
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON"}, status=400)
-
-        if not username or not password:
-            return JsonResponse({"error": "Username and password are required"}, status=400)
-
-        if User.objects.filter(username=username).exists():
-            return JsonResponse({"error": "Username already taken"}, status=409)
-        try:
-            validate_password(password)
-        except ValidationError as e:
-            return JsonResponse({"error": e.messages}, status=400)
-
-        user = User.objects.create_user(username=username, password=password)
-        return JsonResponse({"success": f"User {user.username} created successfully!"}, status=201)
-
-    return JsonResponse({"error": "Only POST allowed"}, status=405)
 
 
 @csrf_exempt  # Keep this for now, but remove in production
@@ -170,5 +110,4 @@ def create_task(request):
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
 
-    return JsonResponse({"error": "Only POST allowed"}, status=405)'''
-
+    return JsonResponse({"error": "Only POST allowed"}, status=405)

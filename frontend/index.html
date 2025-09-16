@@ -1,49 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studyo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studyo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index.css">
+
+  <script src="api.js"></script>
+  <script src="config.js"></script>
+  <script src="index.js"></script>
 </head>
-<link rel="stylesheet" href="index.css">
 
 <body>
-<header class="site-header">Studyo</header>
 
-<div class="top-boxes">
-    <div class="box task-summary">
-      <span class="summary-title">Tasks Completed</span>
-      <span class="summary-count" id="completion-status"></span>
+  <header id="mainHeader">
+    <div class="header-content">
+      <h1>Studyo</h1>
     </div>
-
-    <div class="box add-task-box">
-      <span class="plus-icon">+</span>
-      <a href="addtask.html"><button class="add-task-button">Add Task</button></a>
+    <div class="header-collapsed">
+      <span>Tasks</span>
+      <span id="task-progress-span">2/5</span>
+      <script>addProgressLabel("task-progress-span");</script>
     </div>
-  </div>
+  </header>
 
-<ul id = "tasks"></ul>
+  <main>
 
+    <section  class="top">
+      <h2>Tasks completed</h2>
+        <progress id="task-progress-bar" value="1" max="3" style="width: 15rem; height: 1.25rem;"></progress>
+      <p class="completion-text" id="task-progress-p">3/5</p>
+      <script> addProgressLabel("task-progress-p");</script>
+    </section>
 
- <div id="calendar-overlay" role="dialog" aria-modal="true" aria-labelledby="calendar-title">
-    <div id="calendar-popup">
-      <header>
-        <div id="calendar-title">July 2025</div>
-        <button class="close-btn" aria-label="Close calendar">&times;</button>
-      </header>
-      <table class="calendar" aria-describedby="calendar-desc">
-        <thead>
-          <tr>
-            <th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th>
-          </tr>
-        </thead>
-        <tbody id="calendar-body">
-          <!-- calendar days inserted by JS -->
-        </tbody>
-      </table>
+    <section class="task-list">
+      <button class="add-task-btn" onclick="addTask()">Add Task</button>
+      <ul id="Tasks-list">
+        <li class="task-item" style="opacity: 0.6;">
+          <div class="task-info">
+            <span class="task-name" style="text-decoration: line-through;">English essay</span>
+            <span class="task-date">Completed</span>
+          </div>
+          <div class="task-actions">
+            <button class="task-action-btn"><i class="fas fa-undo"></i></button>
+          </div>
+        </li>
+      </ul>
+      
+      <br>
+      <button class="add-task-btn" style="background-color:var(--green);">Completed Tasks</button>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active">
+      <div class="nav-icon"><i class="fas fa-tasks"></i></div>
+      <span>Tasks</span>
     </div>
-  </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="far fa-calendar"></i></div>
+      <span>Events</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+      <span>Reveiw</span>
+    </div>
+  </nav>
+
+  <script>
+    LoadAndRenderTasks()
+    // Collapsible header functionality
+    const header = document.getElementById('mainHeader');
+    let lastScrollY = window.scrollY;
+    
+    window.addEventListener('scroll', () => {
+      if (lastScrollY < window.scrollY && window.scrollY > 50) {
+        header.classList.add('collapsed');
+      } else {
+        header.classList.remove('collapsed');
+      }
+      
+      lastScrollY = window.scrollY;
+    });
+  </script>
 </body>
-<script src = "config.js" defer ></script>
-<script src="index.js" defer></script>
 </html>

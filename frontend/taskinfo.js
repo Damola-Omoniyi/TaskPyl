@@ -1,5 +1,5 @@
   const timeDisplay = document.getElementById('timeSpent');
-    const toggleBtn = document.getElementById('toggleTimerBtn');
+  const toggleBtn = document.getElementById('toggleTimerBtn');
 
     let timer = null;
     let secondsElapsed = 0;
@@ -80,4 +80,13 @@
       }
     }
 
+   
     window.addEventListener('DOMContentLoaded', fetchTask);
+  
+async function fetchTaskAPi(taskId){
+    const result = await apiFetch(`/api/tasks/${taskId}/`, {method:"GET"});
+    console.log(result.json());
+    return;
+}
+const taskId = localStorage.getItem('taskId');
+fetchTaskAPi(`1`)
