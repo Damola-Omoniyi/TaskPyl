@@ -1,0 +1,253 @@
+:root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+
+    --text: #f1f5f9;
+    --text-secondary: #cbd5e1;
+
+    --accent: #3b82f6;
+    --accent-green: #10b981;
+    --border: #636c78;
+
+    --high-urgency: #ef4444;
+    --medium-urgency: #f59e0b;
+    --low-urgency: #10b981;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text);
+    margin-bottom: 5rem;
+
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.05rem solid var(--border);
+    padding: 1rem;
+    margin: 2rem;
+    margin-top: 0.5rem;
+}
+
+header h1 {
+    color: var(--accent);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+header button {
+    width: 5rem;
+    height: 2.25rem;
+    font-size: 1.25rem;
+    border: 0.1rem solid var(--border);
+    color: var(--accent);
+    background-color: var(--bg-secondary);
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+header button i {
+    color: var(--accent);
+    background-color: var(--bg-secondary);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.task-details {
+    width: 55rem;
+    height: 40rem;
+    background-color: var(--bg-secondary);
+    border-radius: 2rem;
+}
+
+
+.task-info {
+    margin: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.status-active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    width: 30%;
+}
+
+.status-complete {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    width: 30%;
+}
+
+.urgency-high {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--high-urgency);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    text-align: center;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    width: 30%;
+}
+
+.urgency-medium {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--medium-urgency);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    text-align: center;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    width: 30%;
+}
+
+.urgency-low {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--low-urgency);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    text-align: center;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    width: 30%;
+}
+
+
+.dates{
+    display: flex;
+    justify-content: space-between;
+}
+
+.date{
+    margin: 1rem;
+    padding:1rem;
+    height: 5rem;
+    width: 45%;
+    border-radius: 1rem;
+    border: 0.05rem solid var(--border);
+}
+
+.label{
+    color: var(--text-secondary);
+    margin:0.2rem;
+    font-size: 1.05rem;
+}
+
+.label i{
+    margin:0.4rem;
+}
+
+.task-date{
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0.6rem;
+
+}
+
+
+.description{
+color: var(--text);
+font-size: 1.1rem;
+margin-bottom: 2rem;
+margin-left: 1rem;
+margin-right: 1rem;
+
+}
+
+.description p{
+    font-weight: 500;
+    margin: 0.4rem;
+}
+
+.description p i{
+    font-size: 1.3rem;
+}
+
+.description div{
+    margin-top: 1rem;
+    width: 51rem;
+    border: solid 0.05rem var(--border);
+    border-radius: 1rem;
+    padding:1rem;
+}
+
+.task-actions{
+    border-top: solid 0.02rem var(--border);
+    text-align: center;
+}
+.task-actions button{
+width:25%;
+    height: 3rem;
+    margin:1.2rem;
+    font-size: 1.05rem;
+    border-radius: 0.4rem;
+    font-weight: 700;
+    color: white;
+}
+
+.complete-btn{
+    background-color: var(--bg-secondary);
+    border: 0.02rem solid var(--border);
+}
+
+.edit-btn{
+    background-color: var(--accent);
+    border: none;
+}
+
+.delete-btn{
+    background-color: var(--high-urgency);
+    border: none;
+}
+
+/* Apply to the whole page */
+::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-primary);
+}
+
+/* Optional: colour on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border);
+}

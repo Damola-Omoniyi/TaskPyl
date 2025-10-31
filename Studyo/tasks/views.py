@@ -25,9 +25,13 @@ class CreateUser(generics.CreateAPIView):
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
     permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
         return Task.objects.filter(user = self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)  
     
     @action(detail=False, methods=["get"])
     # TODO: RENAME THIS VIEW PLEASE
@@ -38,6 +42,16 @@ class TaskViewSet(viewsets.ModelViewSet):
         return Response({"completed":completed,
                          "total":total})
 
+    @action(detail=True, methods=['patch'])
+    def complete_task(self, request,  *args, **kwargs):
+        task = self.get_object()
+        serializer = TaskSerializer(task, data={"task_completed":True}, partial=True,   context={'request': request})
+        serializer.is_valid(raise_exception=True)  
+        serializer.save()                          
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    
+
 class TaskSummary(generics.ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSummarySerializer
@@ -45,69 +59,15 @@ class TaskSummary(generics.ListAPIView):
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user, task_completed= False)
+    
+class CompleteTaskSummary(generics.ListAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSummarySerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-@csrf_exempt
-def task_info(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data.get("username")
-            taskname = data.get("taskname")
-            if not username and not taskname:
-                return JsonResponse({"error": "Username or TaskName not provided."}, status=400)
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user, task_completed= True)
 
-            try:
-                task = Task.objects.get(user__username=username, task_name=taskname)
-            except Task.DoesNotExist:
-                return JsonResponse({"error": "Task not found."}, status=404)
-            except Task.MultipleObjectsReturned:
-                return JsonResponse({"error": "Multiple tasks found. Expected only one."}, status=400)
-
-            task_json = {
-                "name": task.task_name,
-                "urgency": task.task_urgency,
-                "description": task.task_description,
-                "start_date": str(task.start_date),
-                "end_date": str(task.end_date) if task.end_date else None,
-                "completed": task.task_completed,
-                "time_spent": task.time_spent
-            }
-            return JsonResponse(task_json)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON."}, status=400)
-    return JsonResponse({"error": "Only POST requests allowed."}, status=405)
-
-
-
-
-
-@csrf_exempt  # Keep this for now, but remove in production
-def create_task(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            task_name = data.get("taskName")
-            start_date = data.get("startDate")
-            deadline = data.get("deadline")
-            urgency = data.get("urgency")
-            description = data.get("description")
-            username = data.get("username")
-            user = User.objects.get(username=username)
-
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON"}, status=400)
-
-        try:
-            task = Task.objects.create(
-                task_name=task_name,
-                start_date=start_date,
-                end_date=deadline,
-                task_urgency=urgency,
-                task_description=description,
-                user= user          )
-            return JsonResponse({"success": "Task created"}, status=201)
-
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
-
-    return JsonResponse({"error": "Only POST allowed"}, status=405)
+    def delete(self, request, *args, **kwargs):
+        deleted_count, _ = self.get_queryset().delete()
+        return Response({"deleted": deleted_count}, status=status.HTTP_204_NO_CONTENT)

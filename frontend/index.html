@@ -1,89 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studyo</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="index.css">
 
-  <script src="api.js"></script>
-  <script src="config.js"></script>
-  <script src="index.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskPyl</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="config.js" defer></script>
+  <script src="api.js" defer></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="8fdd3cd8-cbfb-465a-8589-30317a61799b"></script>
+  <script defer src="js/index.js"> </script>
+
 </head>
 
 <body>
-
-  <header id="mainHeader">
-    <div class="header-content">
-      <h1>Studyo</h1>
-    </div>
-    <div class="header-collapsed">
-      <span>Tasks</span>
-      <span id="task-progress-span">2/5</span>
-      <script>addProgressLabel("task-progress-span");</script>
-    </div>
+  <header>
+    <h1>TaskPyl</h1>
+    <button><i class="fas fa-sun"></i></button>
   </header>
 
   <main>
+    <div class="progress-card">
 
-    <section  class="top">
-      <h2>Tasks completed</h2>
-        <progress id="task-progress-bar" value="1" max="3" style="width: 15rem; height: 1.25rem;"></progress>
-      <p class="completion-text" id="task-progress-p">3/5</p>
-      <script> addProgressLabel("task-progress-p");</script>
-    </section>
+      <div class="info">
+        <p class="title">Your progress</p>
+        <p class="stats" id="task-progress-text">2/3 Tasks Completed</p>
+      </div>
+      <progress id="task-progress-bar" value="2" max="3"></progress>
+    </div>
 
-    <section class="task-list">
-      <button class="add-task-btn" onclick="addTask()">Add Task</button>
-      <ul id="Tasks-list">
-        <li class="task-item" style="opacity: 0.6;">
-          <div class="task-info">
-            <span class="task-name" style="text-decoration: line-through;">English essay</span>
-            <span class="task-date">Completed</span>
-          </div>
-          <div class="task-actions">
-            <button class="task-action-btn"><i class="fas fa-undo"></i></button>
-          </div>
-        </li>
-      </ul>
-      
-      <br>
-      <button class="add-task-btn" style="background-color:var(--green);">Completed Tasks</button>
-    </section>
+    <div class="tasks">
+      <div class="labels">
+        <p>Active Tasks</p> <button  id="add-task-btn"><i class="fas fa-plus"></i>Add Task</button>
+      </div>
+    </div>
+
+
+    <!--<div class="task-card">
+        <div class="task-info">
+          <p class="task-name">Task Name</p>
+          <p>Due: Oct 15, 2023</p>
+        </div>
+        <button class="complete-btn"><i class="fas fa-check"></i></button>
+      </div>-->
+
 
   </main>
-
-  <nav class="bottom-nav">
-    <div class="nav-item active">
-      <div class="nav-icon"><i class="fas fa-tasks"></i></div>
-      <span>Tasks</span>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon"><i class="far fa-calendar"></i></div>
-      <span>Events</span>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
-      <span>Reveiw</span>
-    </div>
-  </nav>
-
-  <script>
-    LoadAndRenderTasks()
-    // Collapsible header functionality
-    const header = document.getElementById('mainHeader');
-    let lastScrollY = window.scrollY;
-    
-    window.addEventListener('scroll', () => {
-      if (lastScrollY < window.scrollY && window.scrollY > 50) {
-        header.classList.add('collapsed');
-      } else {
-        header.classList.remove('collapsed');
-      }
-      
-      lastScrollY = window.scrollY;
-    });
-  </script>
 </body>
+
 </html>

@@ -13,7 +13,6 @@ urlpatterns = [
     path("token/blacklist/", jwt_views.TokenBlacklistView.as_view(), name="token_blacklist"),
     path('signup/', views.CreateUser.as_view(), name="signup_user"),
     path('summary/', views.TaskSummary.as_view(), name="task_summary"),
+    path('complete-summary/', views.CompleteTaskSummary.as_view(), name="complete_task_summary"),
     path('', include(router.urls)),
-    path('create-task/', views.create_task),
-    path('task', views.task_info)
 ]

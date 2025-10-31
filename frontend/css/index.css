@@ -1,0 +1,186 @@
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+
+  --text: #f1f5f9;
+  --text-secondary: #cbd5e1;
+
+  --accent: #3b82f6;
+  --accent-green: #10b981;
+  --border: #636c78;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text);
+  margin-bottom: 5rem;
+
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.05rem solid var(--border);
+  padding: 1rem;
+  margin: 2rem;
+  margin-top: 0.5rem;
+}
+header h1 {
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+header button {
+  width: 5rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  border: 0.1rem solid var(--border);
+  color: var(--accent);
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+header button i {
+  color: var(--accent);
+  background-color: var(--bg-secondary);
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.progress-card {
+  background-color: var(--bg-secondary);
+  width: 50rem;
+  height: 10rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem;
+}
+
+.info {
+  width: 45rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.stats {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+}
+
+.progress-card progress {
+  width: 45rem;
+  height: 1.5rem;
+  margin-top: 1rem;
+}
+
+.tasks {
+  width: 50rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top:1rem;
+}
+
+.labels {
+  width: 50rem;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.labels p {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.labels button {
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  background-color: var(--accent);
+  color: var(--text);
+  height: 2.5rem;
+  width: 7rem;
+}
+
+.task-card{
+  height: 6.5rem;
+  width: 50rem;
+  background-color: var(--bg-secondary);
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+
+.task-info{
+  margin: 1.5rem;
+}
+
+.task-name{
+  font-size: 1.25rem;
+  font-weight: 700;
+
+}
+
+.complete-btn{
+  margin: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: var(--bg-secondary);
+  border: var(--border) 0.05rem solid;
+}
+
+/* Apply to the whole page */
+::-webkit-scrollbar {
+  width: 0.25rem;              
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);     
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-primary);     
+}
+
+/* Optional: colour on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border);
+}

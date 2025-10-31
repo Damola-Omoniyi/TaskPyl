@@ -1,0 +1,144 @@
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+
+  --text: #f1f5f9;
+
+  --accent: #3b82f6;
+   --accent-green: #10b981;
+  --border: #636c78;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.05rem solid var(--border);
+  padding: 1rem;
+  margin: 2rem;
+  margin-top: 0.5rem;
+}
+header h1 {
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+header button {
+  width: 5rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  border: 0.1rem solid var(--border);
+  color: var(--accent);
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+header button i {
+  color: var(--accent);
+  background-color: var(--bg-secondary);
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.complete{
+    align-items: center;
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    height: 35rem;
+    width: 35rem;
+    border-radius: 2rem;
+    box-shadow: 0 8px 30px var(--shadow);
+    
+}
+
+.trophy-icon{
+    display: flex;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 6rem;
+    color: var(--accent-green);
+    background-color: var(--bg-secondary);
+    
+}
+
+.complete h2{
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.completed-task-name{
+  font-size: 1.25rem;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--accent-green);
+  margin:1.5rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.stats{
+  height:10rem;
+  width:25rem;
+  border: var(--border), 0.05rem, solid;
+  border-radius: 2rem;
+  margin: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.stats-data{
+  margin:0.75rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: 700;
+}
+
+.number{
+      font-size: 2rem;
+      margin: 1rem;
+      color: var(--accent-green);
+}
+
+.add-task{
+  width: 15rem;
+  height: 4rem;
+  font-size: large;
+  border-radius: 1rem;
+  background-color: var(--bg-secondary);
+  border: var(--border), 0.05rem, solid;
+  color: var(--accent-green);
+  font-weight: 700;
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.add-task i{
+  margin: 0.5rem;
+  font-size: 1.5rem;
+}

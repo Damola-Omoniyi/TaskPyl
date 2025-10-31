@@ -1,65 +1,219 @@
- body {
-      background-color: black;
+ * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: #121212;
       color: white;
       font-family: Arial, sans-serif;
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      padding: 20px;
     }
 
-    h1 {
-      font-size: 40px;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 16px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+
+    .back-button:hover {
+      background-color: #2c2c2c;
+    }
+
+    .logo {
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      font-size: 28px;
+      color: white;
       text-align: center;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      width: 300px;
+    .form-container {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
-    input, select, textarea, button {
-      padding: 10px;
-      margin-top: 30px;
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
       font-size: 16px;
       border-radius: 10px;
-      border: none;
+      border: 2px solid #333;
+      background-color: #2c2c2c;
+      color: white;
+      font-family: Arial, sans-serif;
+      transition: border-color 0.3s;
+    }
+
+    /* Task Name - Studyo Blue highlight */
+    #taskName:focus {
+      outline: none;
+      border-color: #003366;
+    }
+
+    /* Description - Studyo Blue highlight */
+    #description:focus {
+      outline: none;
+      border-color: #003366;
+    }
+
+    /* Deadline - Red highlight */
+    #deadline:focus {
+      outline: none;
+      border-color: #ff4d4d;
     }
 
     textarea {
       resize: vertical;
-      min-height: 100px;
-      font-family: Arial, sans-serif;
+      min-height: 120px;
     }
 
     button {
+      width: 100%;
+      padding: 16px;
       background-color: #003366;
       color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      margin-top: 40px;
-      margin-bottom: 30px;
+      margin-top: 10px;
     }
 
     button:hover {
-      background-color: #3a7ccc;
+      background-color: #004d99;
+    }
+
+    .urgency-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .urgency-btn {
+      padding: 12px;
+      text-align: center;
+      border-radius: 8px;
+      background-color: #2c2c2c;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      font-weight: bold; /* Added bold text for urgency levels */
+    }
+
+    .urgency-btn:hover {
+      background-color: #3c3c3c;
+    }
+
+    /* Only border changes for selected urgency */
+    .urgency-btn.selected {
+      border-color: #003366;
+      background-color: #2c2c2c;
+    }
+
+    .low-urgency {
+      color: #4CAF50;
+    }
+
+    .medium-urgency {
+      color: #ffaa33;
+    }
+
+    .high-urgency {
+      color: #ff4d4d;
     }
 
     @media (max-width: 480px) {
-      form {
-        width: 90%;
-        padding: 10px 30px;
+      body {
+        padding: 10px;
+        justify-content: flex-start;
       }
-
+      
+      .form-container {
+        padding: 20px;
+      }
+      
+      .header {
+        margin-bottom: 5px;
+      }
+      
+      .logo {
+        font-size: 24px;
+      }
+      
       input, select, textarea, button {
-        font-size: 18px;
-        padding: 12px;
-        margin-top: 20px;
+        padding: 16px;
+        font-size: 16px;
       }
+    }
 
-      textarea {
-        min-height: 120px;
-      }
+    /* Date input styling */
+    input[type="date"] {
+      position: relative;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      cursor: pointer;
+    }
+
+    /* Form validation styles */
+    input:invalid, select:invalid, textarea:invalid {
+      border-color: #ff4d4d;
+    }
+
+    input:valid, select:valid, textarea:valid {
+      border-color: #4CAF50;
     }
