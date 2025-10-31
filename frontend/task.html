@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskPyl | Task Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/task.css"> 
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="8fdd3cd8-cbfb-465a-8589-30317a61799b"></script>
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script src="taskinfo.js"></script>
+
+</head>
+<body>
+   <header>
+    <h1 id="task-name">Write Report</h1>
+    <button><i class="fas fa-sun"></i></button>
+  </header>
+
+  <main>
+    <div class="task-details">
+
+      <div class="task-info">
+        <p class="status-active">Active</p>
+        <p class="urgency-high" id="urgency">High Urgency</p>
+      </div>
+
+      <div class="dates">
+        <div class="date"> <p class="label"><i class="far fa-calendar-plus"></i>Start Date</p>
+        <p class="task-date" id="start-date">October 10, 2025</p></div>
+        <div class="date"><p class="label"><i class="far fa-calendar-check"></i>Deadline</p>
+        <p class="task-date" id="deadline">October 15, 2025</p></div>
+      </div>
+
+       <div class="description">
+        <p><i class="far fa-file-alt"></i> Task Description</p>
+        <div ID="description">Create a modern, responsive homepage layout for the TaskPyl application. The design should be clean, user-friendly, and align with our brand guidelines.
+
+Key requirements:
+
+Implement a responsive grid system
+Include a task progress dashboard
+Add quick action buttons for common tasks
+Ensure accessibility standards are met
+Optimize for both desktop and mobile views
+The design should use our primary color scheme (navy blue accents) and maintain consistency with the login page design. </div>
+      </div>
+
+      <div class="task-actions">
+        <button class="complete-btn"> <i class="fas fa-check-circle"></i> Mark Complete</button>
+        <button class="edit-btn"> <i class="fas fa-edit"></i> Update</button>
+        <button class="delete-btn"> <i class="fas fa-trash"></i> Delete</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

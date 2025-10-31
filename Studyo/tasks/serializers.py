@@ -8,7 +8,7 @@ class UserSignupSerializer(serializers.ModelSerializer):
     tasks =  serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = User
-        fields = ['url', 'username', 'password', 'tasks']
+        fields = ['id','username', 'password', 'tasks']
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -21,3 +21,9 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
         model = Task
         fields = ['url','user', 'task_name', 'task_description', 'task_urgency', 
                   'start_date', 'end_date', 'task_completed', 'time_spent']
+    
+class TaskSummarySerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source ="user.username")
+    class Meta:
+        model = Task
+        fields = ['id','user', 'task_name', 'end_date']

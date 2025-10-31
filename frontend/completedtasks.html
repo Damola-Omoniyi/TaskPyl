@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studyo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index.css">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="8fdd3cd8-cbfb-465a-8589-30317a61799b"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="556dfd91-5605-40f6-b40e-42431e5549f9"></script> <!--This is for development only-->
+
+  <script src="api.js"></script>
+  <script src="config.js"></script>
+  <script src="completedtasks.js"></script>
+</head>
+
+<body>
+
+  <header id="mainHeader">
+    <div class="header-content">
+      <h1>Studyo</h1>
+    </div>
+  </header>
+  <main>
+    <section class="task-list">
+      <ul id="Tasks-list">
+        <!--<li class="task-item" style="opacity: 0.6;">
+          <div class="task-info">
+            <span class="task-name" style="text-decoration: line-through;">English essay</span>
+            <span class="task-date">Completed</span>
+          </div>
+          <div class="task-actions">
+            <button class="task-action-btn"><i class="fas fa-undo"></i></button>
+          </div>
+        </li> -->
+      </ul>
+      
+      <br>
+     <button id="del-btn" class="add-task-btn" style="background-color:red;">Delete Tasks</button>
+<script>
+document.getElementById("del-btn").addEventListener("click", async () => {
+    if (!confirm("Are you sure you want to delete all completed tasks?")) return;
+
+    try {
+        const response = await apiFetch("/api/complete-summary/", {
+            method: "DELETE",
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Failed to delete tasks:", errorData);
+            alert("Error deleting tasks: " + JSON.stringify(errorData));
+            return;
+        }
+
+        alert("All completed tasks deleted!");
+        // Optionally, refresh the page or update the UI
+        window.location.href = "index.html";
+    } catch (err) {
+        console.error("Error:", err);
+        alert("Something went wrong while deleting tasks.");
+    }
+});
+</script>
+
+    </section>
+
+  </main>
+
+<!--   <nav class="bottom-nav">
+    <div class="nav-item active">
+      <div class="nav-icon"><i class="fas fa-tasks"></i></div>
+      <span>Tasks</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="far fa-calendar"></i></div>
+      <span>Events</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+      <span>Reveiw</span>
+    </div>
+  </nav> -->
+
+  <script>
+    LoadAndRenderTasks()
+  </script>
+</body>
+</html>
