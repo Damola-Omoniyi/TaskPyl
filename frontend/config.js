@@ -1,4 +1,4 @@
 const CONFIG = {
-    "API_BASE":"https://nhs-banner-dvds-system.trycloudflare.com"
+    "API_BASE":"https://carol-increasingly-realty-closes.trycloudflare.com"
 }
 
