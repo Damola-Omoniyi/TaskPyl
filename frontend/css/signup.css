@@ -58,14 +58,14 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 1rem;
+  margin: 6rem;
 }
 
 .instruction{
     font-size: 2rem;
     font-weight: 700;
     color: var(--accent);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
 }
 
 .form-group{
@@ -87,7 +87,7 @@ main {
     border-radius: 0.5rem;
     background-color: var(--bg-secondary);
     border: var(--border) solid 0.1rem;
-     color: var(--text);
+    color: var(--text);
     font-size: 1rem;
     padding-left: 1rem;
 }
@@ -105,7 +105,7 @@ main {
 }
 
 .switch-txt{
-    margin-top: 1rem;
+    margin-top: 2rem;
     font-size: 1.1rem;
     color: var(--text-secondary);
 }
@@ -114,23 +114,4 @@ main {
     font-weight: 500;
     color: var(--accent);
     text-decoration: none;
-}
-
-
-/* Apply to the whole page */
-::-webkit-scrollbar {
-  width: 0.25rem;              
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);     
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--bg-primary);     
-}
-
-/* Optional: colour on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--border);
 }
