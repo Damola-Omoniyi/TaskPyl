@@ -2,32 +2,16 @@ const taskData = JSON.parse(localStorage.getItem("taskData"));
 console.log(taskData.url);
 console.log(taskData);
 const endpoint = taskData.url.replace("http://127.0.0.1:8000", "");
-document.getElementById('taskName').value = taskData.task_name; 
-    // Set today's date as the default for start date
-    document.getElementById('startDate').value = taskData.start_date;
-    
-    // Set deadline to tomorrow by default
-    document.getElementById('deadline').value = taskData.end_date;
-    
-    // Urgency selection
-    const urgencyButtons = document.querySelectorAll('.urgency-btn');
-    const urgencyInput = document.getElementById('urgency');
-    
-    // Set Medium as default selected
-    urgencyButtons[1].classList.add('selected');
-    urgencyInput.value = taskData.task_urgency;
-    
-    urgencyButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        urgencyButtons.forEach(btn => btn.classList.remove('selected'));
-        button.classList.add('selected');
-        urgencyInput.value = button.getAttribute('data-value');
-      });
-    });
 
+document.getElementById('taskName').value = taskData.task_name; 
+    document.getElementById('startDate').value = taskData.start_date;
+    document.getElementById('deadline').value = taskData.end_date;
+    document.getElementById("priority").value = taskData.task_urgency;
     document.getElementById("description").value = taskData.task_description;
     
 
+
+    
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("taskForm");
 
@@ -45,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const taskData = {
     task_name: document.getElementById("taskName").value,
     task_description: document.getElementById("description").value,
-    task_urgency: urgencyMap[document.getElementById("urgency").value], 
+    task_urgency: urgencyMap[document.getElementById("priority").value], 
     start_date: document.getElementById("startDate").value,
     end_date: document.getElementById("deadline").value,
-    task_completed: false, // default since it’s a new task
-    time_spent: 0,         // or whatever default you want
+    task_completed: false, 
+    time_spent: 0,        
   };
 
   try {

@@ -50,7 +50,7 @@ function loadTaskLabels(taskData) {
 
     document.querySelector('.edit-btn').addEventListener('click', function() {
       alert('Edit task functionality would open here.');
-      window.location.href = `edittask.html`;
+      window.location.href = `edit-task.html`;
 
     });
 }
