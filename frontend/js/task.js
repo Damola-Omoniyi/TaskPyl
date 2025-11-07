@@ -34,7 +34,7 @@ function loadTaskLabels(taskData) {
         return;
     }
 
-    window.location.href = `completetask.html?name=${encodeURIComponent(taskData.task_name)}`;
+    window.location.href = `task-complete.html?name=${encodeURIComponent(taskData.task_name)}`;
     });
 
     document.querySelector('.delete-btn').addEventListener('click', async function() {
