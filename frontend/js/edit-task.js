@@ -1,7 +1,7 @@
 const taskData = JSON.parse(localStorage.getItem("taskData"));
 console.log(taskData.url);
-console.log(taskData);
-const endpoint = taskData.url.replace("http://127.0.0.1:8000", "");
+const endpoint = new URL(taskData.url).pathname;
+console.log(endpoint);
 
 document.getElementById('taskName').value = taskData.task_name; 
     document.getElementById('startDate').value = taskData.start_date;
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     apiFetch(endpoint);
   const result = await apiFetch(endpoint, {
-    method: "PUT",
+    method: "PATCH",
     body: JSON.stringify(taskData), 
   });
 
