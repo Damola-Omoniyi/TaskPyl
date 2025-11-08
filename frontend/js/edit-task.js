@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Redirect back to task list (or wherever you want)
     window.location.href = "index.html";
+
   } catch (err) {
     console.error("Error:", err);
     alert("Something went wrong while creating the task.");
