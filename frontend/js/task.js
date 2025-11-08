@@ -12,6 +12,7 @@ function loadTaskLabels(taskData) {
   document.getElementById('task-name').textContent = taskData.task_name;
   document.getElementById('start-date').textContent = formatDate(taskData.start_date);
   document.getElementById('deadline').textContent = formatDate(taskData.end_date);
+  
   document.getElementById('urgency').textContent = urgencyMap[taskData.task_urgency][0]; 
   document.getElementById('urgency').className = urgencyMap[taskData.task_urgency][1]; 
 
