@@ -10,7 +10,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
 from .serializers import UserSignupSerializer, TaskSerializer, TaskSummarySerializer
-from rest_framework import permissions
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
