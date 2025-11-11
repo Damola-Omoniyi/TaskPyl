@@ -37,10 +37,28 @@ async function getSummary() {
 
 async function LoadAndRenderTasks() {
   const data = await getSummary();
+ /* const data1 = {
+    0: {
+      id: 14,
+      user: "Malik",
+      task_name: "Finish lab write up",
+      end_date: "2025-10-13",
+    },
+    1: {
+      id: 15,
+      user: "Malik",
+      task_name: "Complete Math Homework",
+      end_date: "2025-10-13",
+    },
+    2: { id: 16, user: "Malik", task_name: "dd", end_date: "2025-10-13" },
+  };
+  if (!data) {
+    console.error("Unable to get summary");
+    return;
+  }*/
   //console.log(data);
-  if (data.length != 0){
-    document.getElementById("empty-div").style.display = "none";
-     for (const [taskId, task] of Object.entries(data)) {
+  for (const [taskId, task] of Object.entries(data)) {
+    // taskID seems redundant
     createTaskListItem(task.task_name, task.end_date, task.id);
   }
 
@@ -49,8 +67,7 @@ async function LoadAndRenderTasks() {
   return;
 }
 
-function createTaskListItem(taskName, taskDeadline, taskId) {
-    console.log("bitch");
+function createTaskListItem(taskName, taskDeadline, taskId, taskUrgency) {
 
   let taskListItem = document.createElement("div");
   taskListItem.className = "task-card";
@@ -61,8 +78,8 @@ function createTaskListItem(taskName, taskDeadline, taskId) {
     //alert("display task data");
     window.location.href = `task.html?id=${taskId}`;
   });
-  
-  let taskInfoDiv= document.createElement("div");
+
+  let taskInfoDiv = document.createElement("div");
   taskInfoDiv.className = "task-info";
   taskListItem.appendChild(taskInfoDiv);
 
@@ -75,12 +92,25 @@ function createTaskListItem(taskName, taskDeadline, taskId) {
   taskInfoDiv.appendChild(Name);
   taskInfoDiv.appendChild(taskDate);
 
-const btn = document.createElement("button");
-btn.className = "complete-btn";
-btn.id="complete-task-btn";
-btn.innerHTML = '<i class="fas fa-check"></i>';
-taskListItem.appendChild(btn);
-document.querySelector("main").appendChild(taskListItem);
+
+
+  let urgency = document.createElement("p");
+  if (taskUrgency === "M") {
+    urgency.className = "urgency-medium";
+    urgency.textContent = "Medium";
+  }
+  else if (taskUrgency === "L") {
+    urgency.className = "urgency-low";
+    urgency.textContent = "Low";
+  }
+  else if (taskUrgency === "H") {
+    urgency.className = "urgency-high";
+    urgency.textContent = "High";
+  }
+
+
+  taskListItem.appendChild(urgency);
+  document.querySelector("main").appendChild(taskListItem);
 
 }
 
