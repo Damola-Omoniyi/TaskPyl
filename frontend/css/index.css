@@ -213,7 +213,23 @@ main {
   min-width: 5rem; 
 }
 
-/* Apply to the whole page */
+
+.empty-state{
+  margin: 2rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: table-column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.empty-state i{
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
 ::-webkit-scrollbar {
   width: 0.25rem;              
 }

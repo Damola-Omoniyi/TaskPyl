@@ -37,33 +37,34 @@ async function getSummary() {
 
 async function LoadAndRenderTasks() {
   const data = await getSummary();
- /* const data1 = {
-    0: {
-      id: 14,
-      user: "Malik",
-      task_name: "Finish lab write up",
-      end_date: "2025-10-13",
-    },
-    1: {
-      id: 15,
-      user: "Malik",
-      task_name: "Complete Math Homework",
-      end_date: "2025-10-13",
-    },
-    2: { id: 16, user: "Malik", task_name: "dd", end_date: "2025-10-13" },
-  };
-  if (!data) {
-    console.error("Unable to get summary");
-    return;
-  }*/
+  /* const data1 = {
+     0: {
+       id: 14,
+       user: "Malik",
+       task_name: "Finish lab write up",
+       end_date: "2025-10-13",
+     },
+     1: {
+       id: 15,
+       user: "Malik",
+       task_name: "Complete Math Homework",
+       end_date: "2025-10-13",
+     },
+     2: { id: 16, user: "Malik", task_name: "dd", end_date: "2025-10-13" },
+   };
+   if (!data) {
+     console.error("Unable to get summary");
+     return;
+   }*/
   //console.log(data);
+  const taskCount = Object.keys(data).length;
+  if (taskCount>0){
+    document.getElementById("empty-div").style.display = "none";
+  }
   for (const [taskId, task] of Object.entries(data)) {
     // taskID seems redundant
-    createTaskListItem(task.task_name, task.end_date, task.id);
+    createTaskListItem(task.task_name, task.end_date, task.id, task.task_urgency);
   }
-
-  }
- 
   return;
 }
 
@@ -153,4 +154,3 @@ addProgressLabel("task-progress-text");
 LoadAndRenderTasks();
 //document.getElementById('complete-task-btn').addEventListener('click', window.location.href="completedtasks.html")
 document.getElementById("add-task-btn").addEventListener("click", addTask);
-
