@@ -26,4 +26,4 @@ class TaskSummarySerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source ="user.username")
     class Meta:
         model = Task
-        fields = ['id','user', 'task_name', 'end_date']
+        fields = ['id','user', 'task_name', 'end_date', 'task_urgency']
