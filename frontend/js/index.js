@@ -37,30 +37,15 @@ async function getSummary() {
 
 async function LoadAndRenderTasks() {
   const data = await getSummary();
- /* const data1 = {
-    0: {
-      id: 14,
-      user: "Malik",
-      task_name: "Finish lab write up",
-      end_date: "2025-10-13",
-    },
-    1: {
-      id: 15,
-      user: "Malik",
-      task_name: "Complete Math Homework",
-      end_date: "2025-10-13",
-    },
-    2: { id: 16, user: "Malik", task_name: "dd", end_date: "2025-10-13" },
-  };
-  if (!data) {
-    console.error("Unable to get summary");
-    return;
-  }*/
   //console.log(data);
-  for (const [taskId, task] of Object.entries(data)) {
-    // taskID seems redundant
+  if (data.length != 0){
+    document.getElementById("empty-div").style.display = "none";
+     for (const [taskId, task] of Object.entries(data)) {
     createTaskListItem(task.task_name, task.end_date, task.id);
   }
+
+  }
+ 
   return;
 }
 
