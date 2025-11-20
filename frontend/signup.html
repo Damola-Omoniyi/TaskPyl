@@ -1,61 +1,54 @@
 <!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Sign up for TaskPyl - Task Management Made Simple"
-    />
-    <title>Sign up | TaskPyl</title>
+
+<head>
+  <link rel="stylesheet" href="css/signup.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sign up for TaskPyl - Task Management Made Simple" />
+
+  <title>Sign up | TaskPyl</title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="css/signup.css" />
 
-      <script
-      defer
-      src="https://cloud.umami.is/script.js"
-      data-website-id="8fdd3cd8-cbfb-465a-8589-30317a61799b"
-    ></script>
-    <script src="config.js" defer></script>
-    <script src="js/signup.js" defer></script>
-  </head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="8fdd3cd8-cbfb-465a-8589-30317a61799b"></script>
+  <script src="config.js" defer></script>
+  <script src="js/signup.js" defer></script>
+</head>
 
-  <body>
-  <header>
+<body>
+  <header class="site-header">
     <h1>TaskPyl</h1>
-    <button><i class="fas fa-sun"></i></button>
+    <button type="button" aria-label="Toggle theme">
+      <i class="fas fa-sun"></i>
+    </button>
   </header>
 
-    <main>
-        <h2 class="instruction">Create an account</h2>
+  <main>
+    <section id="signup-section" class="signup-section">
+      <h2 class="instruction">Create an account</h2>
 
-       <form id="signUpForm">
-             <!--<div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" />
-          </div>-->
+      <form id="signUpForm" class="signup-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
 
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required />
-          </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
 
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required />
-          </div>
+        <button class="submit-btn" type="submit">Sign Up</button>
+      </form>
+    </section>
 
-          <!-- <div class="form-group">
-            <label for="password">Confirm Password</label>
-            <input type="password" id="password-c" name="password-c"/>
-          </div>-->
-          <button class="submit-btn" type="submit">Sign Up</button>
-        </form>
+    <p class="switch-txt">
+      Already have an account?
+      <a href="login.html">Log in</a>
+    </p>
+  </main>
+</body>
 
-        <p class="switch-txt">
-          Already have an account?
-          <a href="login.html">Log in</a>
-        </p>
-    </main>
-  </body>
 </html>

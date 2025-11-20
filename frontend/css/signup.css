@@ -10,34 +10,33 @@
   --border: #636c78;
 }
 
-* {
-  margin: 0;
-  padding: 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   font-family: "Segoe UI", system-ui, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text);
-  margin-bottom: 5rem;
-
 }
 
-header {
+.site-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 0.05rem solid var(--border);
-  padding: 1rem;
-  margin: 2rem;
-  margin-top: 0.5rem;
+  padding: 0rem 1rem;
 }
-header h1 {
+
+.site-header h1 {
   color: var(--accent);
   font-size: 2rem;
   font-weight: 700;
 }
 
-header button {
+.site-header button {
   width: 5rem;
   height: 2.25rem;
   font-size: 1.25rem;
@@ -46,11 +45,7 @@ header button {
   background-color: var(--bg-secondary);
   cursor: pointer;
   border-radius: 0.5rem;
-}
-
-header button i {
-  color: var(--accent);
-  background-color: var(--bg-secondary);
+  padding: 0;
 }
 
 main {
@@ -58,60 +53,78 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 6rem;
 }
 
-.instruction{
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
+
+.signup-section {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.form-group{
-    margin: 1.5rem;
-    display: flex;
-    flex-direction: column;
+.instruction {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
 }
 
-.form-group label{
-    font-weight: 600;
-    color: var(--text-secondary);
-    font-size: 1.2rem;
+
+.signup-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 }
 
-.form-group input{
-    margin-top: 0.5rem;
-    width: 25rem;
-    height: 2.5rem;
-    border-radius: 0.5rem;
-    background-color: var(--bg-secondary);
-    border: var(--border) solid 0.1rem;
-    color: var(--text);
-    font-size: 1rem;
-    padding-left: 1rem;
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
- .submit-btn{
-    color: var(--text);
-    background-color: var(--accent);
-    width: 25rem;
-    height: 2.5rem;
-    border-radius: 0.5rem;
-    border: none;
-    margin: 1.5rem;
-        font-weight: 600;
-    font-size: 1.2rem;
+.form-group label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
 }
 
-.switch-txt{
-    margin-top: 2rem;
-    font-size: 1.1rem;
-    color: var(--text-secondary);
+.form-group input {
+  margin-top: 0.5rem;
+  width: 25rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--bg-secondary);
+  border: var(--border) solid 0.1rem;
+  color: var(--text);
+  font-size: 1.25rem;
+  padding-left: 1rem;
+  outline: none;
 }
 
-.switch-txt a{
-    font-weight: 500;
-    color: var(--accent);
-    text-decoration: none;
+.submit-btn {
+  color: var(--text);
+  background-color: var(--accent);
+  width: 25rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.switch-txt {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.switch-txt a {
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
 }

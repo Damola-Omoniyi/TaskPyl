@@ -1,30 +1,30 @@
-const form = document.getElementById('signUpForm');
+const form = document.getElementById("signUpForm");
 
-form.addEventListener('submit', signUpUser);
-
-async function signUpUser(event) {
+async function signUpUser(event, base_path) {
   event.preventDefault();
 
   const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
+  const signUpData = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch(`${CONFIG.API_BASE}/api/signup/`, {
+
+    const response = await fetch(`${base_path}/api/signup/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(signUpData),
     });
 
     const result = await response.json();
 
-    alert(JSON.stringify(result));
-
     if (response.ok) {
-      window.location.href = 'login.html';
+      window.location.href = "login.html";
     } else {
       alert(`Signup failed: ${result.detail || response.statusText}`);
     }
+    
   } catch (err) {
-    alert("Signup failed: " + err.message);
+    alert("Connection error. Please check your network and try again. Details: "  + err.message);
   }
 }
+
+form.addEventListener("submit", (event)=>signUpUser(event, CONFIG.API_BASE));
