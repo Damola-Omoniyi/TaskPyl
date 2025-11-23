@@ -45,7 +45,6 @@ body {
   background-color: var(--bg-secondary);
   cursor: pointer;
   border-radius: 0.5rem;
-  padding: 0;
 }
 
 main {
@@ -115,6 +114,7 @@ main {
   margin-top: 1.5rem;
   font-weight: 600;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .switch-txt {

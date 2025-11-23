@@ -1,5 +1,3 @@
-const form = document.getElementById("signUpForm");
-
 async function signUpUser(event, base_path) {
   event.preventDefault();
 
@@ -21,10 +19,12 @@ async function signUpUser(event, base_path) {
     } else {
       alert(`Signup failed: ${result.detail || response.statusText}`);
     }
-    
+
   } catch (err) {
-    alert("Connection error. Please check your network and try again. Details: "  + err.message);
+    console.error("Login failed with connection error:", err);
+    alert("Connection error. Please check your network and try again. Details: " + err.message);
   }
 }
 
-form.addEventListener("submit", (event)=>signUpUser(event, CONFIG.API_BASE));
+const form = document.getElementById("signUpForm");
+form.addEventListener("submit", (event) => signUpUser(event, CONFIG.API_BASE));
